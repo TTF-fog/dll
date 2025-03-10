@@ -1,1 +1,25 @@
+name: Build Flarial and UPLOAD to newcdn
+on:
+  
+  push:
+    branches: [ "main","scripting-v2" ]
+  pull_request:
+    branches: [ "main","scripting-v2" ]
 
+  workflow_dispatch:
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+    steps:
+    
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    
+    - name: Set Up MSVC Environment
+      run: |
+        echo ${{ github.event.head_commit.message }}
+        echo ${{ github.event.workflow_run.head_commit.message }}
+  
+ 
