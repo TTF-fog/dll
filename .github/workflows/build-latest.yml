@@ -24,16 +24,16 @@ jobs:
         {echo "Continuing to build"}
         else 
         {
-        echo "Not a build commit, exiting"
+        echo "Not a build commit, exiting (note: this may take 5-10 seconds)"
         gh run cancel ${{ github.run_id }}
         gh run watch ${{ github.run_id }}
         exit 0
         }
-        
+      
+      env:
+        GH_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
     - name: Set Up MSVC Environment
       uses: ilammy/msvc-dev-cmd@v1
-
-    
     - name: Configure CMake
       run: |
         cmake -S . -B build -G "Ninja" -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_STANDARD=23 -DCMAKE_BUILD_TYPE=Release
