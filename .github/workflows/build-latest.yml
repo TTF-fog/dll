@@ -16,7 +16,17 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    
+    - name: "Check if build commit"
+      run: |
+        
+        if ( "${{ github.event.head_commit.message }}" -like "*build:*" )
+        {echo "Continuing to build"}
+        else 
+        {
+        echo "Not a build commit, exiting"
+        exit 0
+        }
+        
     - name: Set Up MSVC Environment
       uses: ilammy/msvc-dev-cmd@v1
 
@@ -54,8 +64,11 @@ jobs:
           uses: actions/download-artifact@v4.1.9
         - name: push changes
           run: |
+            local name = Nightly_${GITHUB_SHA:0:6}_Add:${{ github.event.head_commit.message }}
+            echo $name
+            mv ./Flarial_DLL "./'$name'"
             ls
-            git add Flarial_DLL
-            git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
+            git add $name
+            git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message:0:6 }}'"
             git push origin main
        
