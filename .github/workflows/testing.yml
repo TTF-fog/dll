@@ -21,7 +21,8 @@ jobs:
       run: |
         
         if ( "${{ github.event.head_commit.message }}" -contains "build:" ) 
-        {echo notfound} 
+        echo "Not a build commit, exiting"
+        exit 0
         else 
         {echo found}
       
