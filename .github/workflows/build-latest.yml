@@ -24,6 +24,8 @@ jobs:
         else 
         {
         echo "Not a build commit, exiting"
+        gh run cancel ${{ github.run_id }}
+        gh run watch ${{ github.run_id }}
         exit 0
         }
         
