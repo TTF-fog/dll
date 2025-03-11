@@ -64,11 +64,12 @@ jobs:
           uses: actions/download-artifact@v4.1.9
         - name: push changes
           run: |
-            local name = Nightly_${GITHUB_SHA:0:6}_Add:${{ github.event.head_commit.message }}
+            name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}' | cut -c1-6)"
             echo $name
-            mv ./Flarial_DLL "./'$name'"
+            mv ./Flarial_DLL "./$name"
             ls
             git add $name
-            git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message:0:6 }}'"
+            git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
             git push origin main
+
        
