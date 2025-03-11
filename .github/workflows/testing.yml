@@ -1,4 +1,4 @@
-name: Build Flarial and UPLOAD to newcdn
+name: Build Flarial and UPLOAD to newcdne
 on:
   
   push:
