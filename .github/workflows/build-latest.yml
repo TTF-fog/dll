@@ -68,6 +68,7 @@ jobs:
             name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
             echo $name
             name="${name//:/_}" 
+            name="${name// /_}"
             mv ./Flarial_DLL "./$name"
             ls
             git add $name
