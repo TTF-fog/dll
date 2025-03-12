@@ -82,7 +82,7 @@ jobs:
           uses: actions/download-artifact@v4.1.9
         - name: push changes
           run: |
-            if [[ ${{ env.OUTPUT1}} == "release" ]]; then
+            if [[ "${{ env.OUTPUT1}}" == "release" ]]; then
                 name="Flarial.dll"
                 mv ./Flarial_DLL "./dll/Flarial.dll"
             else
