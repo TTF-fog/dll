@@ -74,7 +74,7 @@ jobs:
             repository: 'TTF-fog/newcdn'
             ref: 'main'
             token:  ${{secrets.ACTIONS_GITHUB_TOKEN}}
-        - name: setup git config
+        - name: setup git configs
           run: |
             git config user.name "GitHub Actions Bot"
             git config user.email "actions@example.com"
