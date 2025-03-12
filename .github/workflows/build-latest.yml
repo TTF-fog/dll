@@ -61,7 +61,7 @@ jobs:
     steps:
 
         - env:
-            OUTPUT1: ${{needs.windows-build.outputs.type}}
+            OUTPUT1: ${{needs.windows-build.outputs.status}}
           run: echo "$OUTPUT1"
         - name: checkkout cdn
           uses: actions/checkout@v4
