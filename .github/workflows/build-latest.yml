@@ -82,15 +82,21 @@ jobs:
           uses: actions/download-artifact@v4.1.9
         - name: push changes
           run: |
+            if [[ ${{ env.OUTPUT1}} == "release" ]]; then
+                name="Flarial.dll"
+                mv ./Flarial_DLL "./dll/Flarial.dll"
+            else
+              name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
+              name="${name//:/_}" 
+              name="${name// /_}"
+              mv ./Flarial_DLL "./$name"
+              ls
+              git add $name
+              git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
+              git push origin main
             
-            name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
-            echo $name
-            name="${name//:/_}" 
-            name="${name// /_}"
-            mv ./Flarial_DLL "./$name"
-            ls
-            git add $name
-            git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
+            
+            git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
             git push origin main
 
        
