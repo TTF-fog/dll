@@ -85,7 +85,9 @@ jobs:
             OUTPUT1: ${{needs.windows-build.outputs.type}}
           run: |
             if [[ "${{ env.OUTPUT1 }}" == "release" ]]; then
-               mv -f Flarial.dll "./dll/latest.dll"
+                ls
+                ls Flarial_DLL
+                mv -f Flarial.dll "./dll/latest.dll"
                 ls ./dll
                 git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
                 git push origin main
