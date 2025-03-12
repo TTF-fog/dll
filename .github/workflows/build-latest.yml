@@ -24,8 +24,9 @@ jobs:
       run: |
         
         if ( "${{ github.event.head_commit.message }}" -like "*build:*" )
-        {echo "Continuing to build"}
+        {echo "Continuing to build"
         echo "status=build" >> "$GITHUB_OUTPUT"
+        }
         else 
         {
         echo "Not a build commit, exiting (note: this may take 5-10 seconds)"
