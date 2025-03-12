@@ -82,9 +82,11 @@ jobs:
           uses: actions/download-artifact@v4.1.9
         - name: push changes
           run: |
-            if [[ "${{ env.OUTPUT1}}" == "release" ]]; then
+            if [[ "${{ env.OUTPUT1 }}" == "release" ]]; then
                 name="Flarial.dll"
                 mv ./Flarial_DLL "./dll/Flarial.dll"
+                git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
+                git push origin main
             else
               name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
               name="${name//:/_}" 
@@ -96,7 +98,6 @@ jobs:
               git push origin main
             
             
-            git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
-            git push origin main
+           
 
        
