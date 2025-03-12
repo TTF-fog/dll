@@ -1,6 +1,6 @@
 name: Build Flarial and UPLOAD to newcdn
 on:
-  
+
   push:
     branches: [ "main","scripting-v2" ]
   pull_request:
@@ -15,7 +15,7 @@ jobs:
     outputs:
       type: ${{ steps.type.outputs.status }}
     steps:
-    
+
     - name: Checkout Repository
       uses: actions/checkout@v4
 
@@ -25,7 +25,7 @@ jobs:
         
         if ( "${{ github.event.head_commit.message }}" -like "*build:*" )
         {echo "Continuing to build"
-        echo "status=build" >> "$GITHUB_OUTPUT"
+        echo "MY_OUTPUT=${{'build'}}" >> $ENV:GITHUB_OUTPUT
         }
         else 
         {
@@ -34,7 +34,7 @@ jobs:
         gh run watch ${{ github.run_id }}
         exit 0
         }
-      
+
       env:
         GH_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
     - name: Set Up MSVC Environment
@@ -44,7 +44,7 @@ jobs:
         echo 'hi'
 #        cmake -S . -B build -G "Ninja" -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_STANDARD=23 -DCMAKE_BUILD_TYPE=Release
 
-    
+
 #    - name: Build DLL
 #      run: |
 #          cmake --build build
@@ -54,7 +54,7 @@ jobs:
 #      with:
 #        name: Flarial_DLL
 #        path: D:\a\dll\dll\build\Flarial.dll
-  
+
   upload-to-cdn:
     runs-on: ubuntu-latest
     needs: windows-build
@@ -62,7 +62,7 @@ jobs:
 
         - env:
             OUTPUT1: ${{needs.windows-build.outputs.status}}
-          run: echo "$OUTPUT1"
+          run: echo ${{ env.OUTPUT1 }}
         - name: checkkout cdn
           uses: actions/checkout@v4
           with:
