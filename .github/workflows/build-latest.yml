@@ -86,7 +86,7 @@ jobs:
           run: |
             if [[ "${{ env.OUTPUT1 }}" == "release" ]]; then
                 name="Flarial.dll"
-                mv ./Flarial_DLL "./dll/Flarial.dll"
+                mv ./Flarial_DLL "./dll/latest.dll"
                 ls
                 ls ./dll
                 git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
