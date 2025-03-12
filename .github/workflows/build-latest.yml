@@ -81,6 +81,8 @@ jobs:
         - name: Download dll
           uses: actions/download-artifact@v4.1.9
         - name: push changes
+          env:
+            OUTPUT1: ${{needs.windows-build.outputs.type}}
           run: |
             if [[ "${{ env.OUTPUT1 }}" == "release" ]]; then
                 name="Flarial.dll"
