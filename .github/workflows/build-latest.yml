@@ -12,16 +12,20 @@ env:
 jobs:
   windows-build:
     runs-on: windows-latest
+    outputs:
+      type: ${{ steps.type.outputs.status }}
     steps:
     
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: "Check if build commit"
+    - name: "Check commit type"
+      id: type
       run: |
         
         if ( "${{ github.event.head_commit.message }}" -like "*build:*" )
         {echo "Continuing to build"}
+        echo "status=build" >> "$GITHUB_OUTPUT"
         else 
         {
         echo "Not a build commit, exiting (note: this may take 5-10 seconds)"
@@ -36,23 +40,28 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
     - name: Configure CMake
       run: |
-        cmake -S . -B build -G "Ninja" -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_STANDARD=23 -DCMAKE_BUILD_TYPE=Release
+        echo 'hi'
+#        cmake -S . -B build -G "Ninja" -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_STANDARD=23 -DCMAKE_BUILD_TYPE=Release
 
     
-    - name: Build DLL
-      run: |
-          cmake --build build
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.6.1
-      with:
-        name: Flarial_DLL
-        path: D:\a\dll\dll\build\Flarial.dll
+#    - name: Build DLL
+#      run: |
+#          cmake --build build
+
+#    - name: Upload a Build Artifact
+#      uses: actions/upload-artifact@v4.6.1
+#      with:
+#        name: Flarial_DLL
+#        path: D:\a\dll\dll\build\Flarial.dll
   
   upload-to-cdn:
     runs-on: ubuntu-latest
     needs: windows-build
     steps:
-      
+
+        - env:
+            OUTPUT1: ${{needs.windows-build.outputs.type}}
+          run: echo "$OUTPUT1"
         - name: checkkout cdn
           uses: actions/checkout@v4
           with:
