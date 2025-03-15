@@ -85,25 +85,22 @@ jobs:
           env:
             OUTPUT1: ${{needs.windows-build.outputs.type}}
           run: |
-            if [[ "${{ env.OUTPUT1 }}" == "1" ]]; then
-#                mv -f Flarial_DLL/Flarial.dll "./dll/latest.dll"
-#                ls ./dll
-#                git add ./dll/latest.dll
-#                git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
-#                git push origin main
-#
-                 echo "uploading as release"
+            echo "Output1 is: $OUTPUT1"
+            if [[ "$OUTPUT1" == "1" ]]; then
+              echo "Uploading as release"
+              # mv -f Flarial_DLL/Flarial.dll "./dll/latest.dll"
+              # ls ./dll
+              # git add ./dll/latest.dll
+              # git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
+              # git push origin main
             else
-#              name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
-#              name="${name//:/_}" 
-#              name="${name// /_}"
-#              mv ./Flarial_DLL "./$name"
-#              ls
-#              git add $name
-#              git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
-#              git push origin main
-               echo "uploading as nightly"   
+              echo "Uploading as nightly"
+              # name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
+              # name="${name//:/_}" 
+              # name="${name// /_}"
+              # mv ./Flarial_DLL "./$name"
+              # ls
+              # git add $name
+              # git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
+              # git push origin main
             fi
-            
-
-       
