@@ -85,8 +85,8 @@ jobs:
           env:
             OUTPUT1: ${{needs.windows-build.outputs.type}}
           run: |
-            echo "Output1 is: $OUTPUT1"
-            if [[ "$OUTPUT1" == "1" ]]; then
+            echo "Output1 is ${{ env.OUTPUT1 }}"
+            if [[ ${{ env.OUTPUT1 }}" == "1" ]]; then
               echo "Uploading as release"
               # mv -f Flarial_DLL/Flarial.dll "./dll/latest.dll"
               # ls ./dll
