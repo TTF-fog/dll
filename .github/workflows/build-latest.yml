@@ -26,10 +26,10 @@ jobs:
         
         if [[ "${{ github.event.head_commit.message }}" == *"build:"* ]]; then
             echo "Continuing to build as nightly"
-            echo status=build >> "$GITHUB_OUTPUT"
+            echo status=0 >> "$GITHUB_OUTPUT"
         elif  [[ "${{ github.event.head_commit.message }}" == *"release:"* ]]; then
             echo "Continuing to build as release"
-            echo status=release >> "$GITHUB_OUTPUT"
+            echo status=1 >> "$GITHUB_OUTPUT"
         else
         echo "Not a build commit, exiting (note: this may take 5-10 seconds)"
         gh run cancel ${{ github.run_id }}
@@ -75,6 +75,7 @@ jobs:
             ref: 'main'
             token:  ${{secrets.ACTIONS_GITHUB_TOKEN}}
         - name: setup git configs
+
           run: |
             git config user.name "GitHub Actions Bot"
             git config user.email "actions@example.com"
@@ -84,12 +85,14 @@ jobs:
           env:
             OUTPUT1: ${{needs.windows-build.outputs.type}}
           run: |
-            if [[ "${{ env.OUTPUT1 }}" == "release" ]]; then
-                mv -f Flarial_DLL/Flarial.dll "./dll/latest.dll"
-                ls ./dll
-                git add ./dll/latest.dll
-                git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
-                git push origin main
+            if [[ "${{ env.OUTPUT1 }}" == "1" ]]; then
+#                mv -f Flarial_DLL/Flarial.dll "./dll/latest.dll"
+#                ls ./dll
+#                git add ./dll/latest.dll
+#                git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
+#                git push origin main
+#
+                 echo "uploading as release"
             else
               name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
               name="${name//:/_}" 
@@ -101,6 +104,5 @@ jobs:
               git push origin main
             fi
             
-           
 
        
