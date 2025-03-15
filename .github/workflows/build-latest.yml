@@ -94,14 +94,15 @@ jobs:
 #
                  echo "uploading as release"
             else
-              name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
-              name="${name//:/_}" 
-              name="${name// /_}"
-              mv ./Flarial_DLL "./$name"
-              ls
-              git add $name
-              git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
-              git push origin main
+#              name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
+#              name="${name//:/_}" 
+#              name="${name// /_}"
+#              mv ./Flarial_DLL "./$name"
+#              ls
+#              git add $name
+#              git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
+#              git push origin main
+               echo "uploading as nightly"   
             fi
             
 
