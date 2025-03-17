@@ -65,8 +65,9 @@ jobs:
     needs: windows-build
     steps:
       - name: Output commit type
-        run: echo " ${{ needs.windows-build.outputs.type }}"
-
+        run: echo " ${{env.OUTPUT1 }}"
+        env:
+          OUTPUT1: ${{ needs.windows-build.outputs.type}}
       - name: Checkout newcdn repository
         uses: actions/checkout@v4
         with:
@@ -83,10 +84,12 @@ jobs:
         uses: actions/download-artifact@v4.1.9
 
       - name: Push changes
-        if: ${{ needs.windows-build.outputs.type == '1' }}
+        if: "${{ env.OUTPUT1 }}" == "1"
         run: |
           gh release upload "test" "Flarial_DLL/Flarial.dll"
           gh release edit "test" --draft=false
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+
+          OUTPUT1: ${{ needs.windows-build.outputs.type}}
