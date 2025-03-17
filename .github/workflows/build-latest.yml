@@ -84,23 +84,10 @@ jobs:
         - name: push changes
           env:
             OUTPUT1: ${{needs.windows-build.outputs.type}}
+            GH_TOKEN: ${{ github.token }}
+            GH_REPO: ${{ github.repository }}
+          if: "${{ env.OUTPUT1 }}" == "1"
           run: |
-            echo "Output1 is ${{ env.OUTPUT1 }}"
-            if [[ ${{ env.OUTPUT1 }}" == "1" ]]; then
-              echo "Uploading as release"
-              # mv -f Flarial_DLL/Flarial.dll "./dll/latest.dll"
-              # ls ./dll
-              # git add ./dll/latest.dll
-              # git commit -m "Add Release for Build Commit: '${{ github.event.head_commit.message }}'"
-              # git push origin main
-            else
-              echo "Uploading as nightly"
-              # name="Nightly_${GITHUB_SHA:0:6}_Add:$(echo '${{ github.event.head_commit.message }}')"
-              # name="${name//:/_}" 
-              # name="${name// /_}"
-              # mv ./Flarial_DLL "./$name"
-              # ls
-              # git add $name
-              # git commit -m "Add Nightly for Build Commit: '${{ github.event.head_commit.message }}'"
-              # git push origin main
-            fi
+            gh release upload "test" "Flarial_DLL/Flarial.dll"
+            gh release edit "hi" --draft=false
+              
