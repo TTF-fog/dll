@@ -1,4 +1,4 @@
-name: Build Flarial and upload to newcdn
+name: Build Flarial dll and upload to newcdn
 
 on:
   push:
