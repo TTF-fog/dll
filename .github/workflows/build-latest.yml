@@ -74,12 +74,6 @@ jobs:
           repository: 'TTF-fog/newcdn'
           ref: 'main'
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Git Configs
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@example.com"
-
       - name: Download build artifact
         uses: actions/download-artifact@v4.1.9
         env:
