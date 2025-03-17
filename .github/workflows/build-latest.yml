@@ -86,4 +86,3 @@ jobs:
         with:
           files:
             Flarial_DLL/Flarial.dll
-        if: startsWith(github.ref, 'refs/tags/')
