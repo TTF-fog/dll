@@ -75,17 +75,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Download build artifact
         uses: actions/download-artifact@v4.1.9
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-
-          OUTPUT1: ${{ needs.windows-build.outputs.type}}
-
 
       - name: Release
-        uses: softprops/action-gh-release@v2
         env:
           OUTPUT1: ${{ needs.windows-build.outputs.type}}
+        uses: softprops/action-gh-release@v2
         if: "${{env.OUTPUT1 }}" != "1"
          with:
           files:
