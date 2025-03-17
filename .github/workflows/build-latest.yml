@@ -82,9 +82,8 @@ jobs:
 
       - name: Download build artifact
         uses: actions/download-artifact@v4.1.9
-
       - name: Push changes
-        if: "${{ env.OUTPUT1 }}" == "1"
+
         run: |
           gh release upload "test" "Flarial_DLL/Flarial.dll"
           gh release edit "test" --draft=false
