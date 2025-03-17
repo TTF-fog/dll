@@ -92,4 +92,4 @@ jobs:
           body: ${{ github.event.head_commit.message }}
           name: "Nightly Release"
           repository: TTF-fog/newcdn
-          token: ${{ secrets.ACTIONS_GITHUB_TOKEN}}
+          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
