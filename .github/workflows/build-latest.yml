@@ -81,9 +81,15 @@ jobs:
           GH_REPO: ${{ github.repository }}
 
           OUTPUT1: ${{ needs.windows-build.outputs.type}}
+
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files:
             Flarial_DLL/Flarial.dll
           tag_name: 1.0
+          body: ${{ github.event.head_commit.message }}
+          name: "Nightly Release"
+          repository: TTF-fog/newcdn
+          token: ${{ secrets.ACTIONS_GITHUB_TOKEN}}
