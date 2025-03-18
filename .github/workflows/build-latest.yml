@@ -67,12 +67,7 @@ jobs:
         run: echo " ${{env.OUTPUT1}} $OUTPUT1"
         env:
           OUTPUT1: ${{ needs.windows-build.outputs.type}}
-      - name: Checkout newcdn repository
-        uses: actions/checkout@v4
-        with:
-          repository: 'TTF-fog/newcdn'
-          ref: 'main'
-          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+
       - name: Release
         uses: softprops/action-gh-release@v2
         if: "${{needs.windows-build.outputs.type }}" != "1"
