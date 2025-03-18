@@ -130,3 +130,7 @@ jobs:
           git add cache.txt
           git commit -m "Add Cache for Tags (API)"
           git push origin main
+        if: ${{ env.OUTPUT1 == 0 }}
+        env:
+          OUTPUT1: ${{ needs.windows-build.outputs.type}}
+          TAG_NAME: ${{ steps.tag.outputs.TAG_NAME }}
