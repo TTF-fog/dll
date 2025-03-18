@@ -75,11 +75,13 @@ jobs:
           token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
       - name: Release
         uses: softprops/action-gh-release@v2
-
+      - name: setup tag
+        run: |
+          echo "TAG_NAME=nightly-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
         with:
           files:
             Flarial_DLL/Flarial.dll
-          tag_name: ${{ github.event.head_commit.message }}
+          tag_name: ${{ env.TAG_NAME }}
           body: ${{ github.event.head_commit.message }}
           name: "Nightly Release"
           repository: TTF-fog/newcdn
