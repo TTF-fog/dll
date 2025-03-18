@@ -72,7 +72,7 @@ jobs:
         with:
           repository: 'TTF-fog/newcdn'
           ref: 'main'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
       - name: Release
         uses: softprops/action-gh-release@v2
         if: "${{needs.windows-build.outputs.type }}" != "1"
