@@ -95,6 +95,8 @@ jobs:
           TAG_NAME: ${{ steps.tag.outputs.TAG_NAME }}
       - name: Cache Github API
         run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@example.com"
           gh api https://api.github.com/repos/TTF-fog/newcdn/tags | touch cache.txt
           git add cache.txt
           git commit -m "Add Cache for Tags (API)"
