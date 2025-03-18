@@ -50,17 +50,15 @@ jobs:
           # Uncomment and modify this line as needed
           # cmake -S . -B build -G "Ninja" -DCMAKE_CXX_COMPILER=cl -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_STANDARD=23 -DCMAKE_BUILD_TYPE=Release
 
-    # Uncomment this part when building the DLL is required
-    # - name: Build DLL
-    #   run: |
-    #     cmake --build build
 
-    # Uncomment to upload build artifact when needed
-    # - name: Upload a Build Artifact
-    #   uses: actions/upload-artifact@v4.6.1
-    #   with:
-    #     name: Flarial_DLL
-    #     path: D:\a\dll\dll\build\Flarial.dll
+      - name: Build DLL
+        run: |
+           cmake --build build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.1
+        with:
+           name: Flarial_DLL
+           path: D:\a\dll\dll\build\Flarial.dll
 
   upload-to-cdn:
     runs-on: ubuntu-latest
@@ -76,6 +74,8 @@ jobs:
           repository: 'TTF-fog/newcdn'
           ref: 'main'
           token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+      - name: Download dll
+        uses: actions/download-artifact@v4.1.9
       - name: setup tag
         id: tag
         run: |
