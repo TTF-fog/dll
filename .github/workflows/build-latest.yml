@@ -76,8 +76,8 @@ jobs:
       - name: setup tag
         id: tag
         run: |
-        
-         echo "TAG_NAME=nightly-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          
+          echo "TAG_NAME=nightly-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
       - name: Release
         uses: softprops/action-gh-release@v2
 
@@ -93,3 +93,9 @@ jobs:
         env:
           OUTPUT1: ${{ needs.windows-build.outputs.type}}
           TAG_NAME: ${{ steps.tag.outputs.TAG_NAME }}
+      - name: Cache Github API
+        run: |
+          gh api https://api.github.com/repos/TTF-fog/newcdn/tags | touch cache.txt
+          git add cache.txt
+          git commit -m "Add Cache for Tags (API)"
+          git push origin main
