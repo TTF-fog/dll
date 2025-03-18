@@ -75,9 +75,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Download build artifact
         uses: actions/download-artifact@v4.1.9
-
       - name: Release
-
         uses: softprops/action-gh-release@v2
         if: "${{needs.windows-build.outputs.type }}" != "1"
          with:
