@@ -84,4 +84,4 @@ jobs:
           name: "Nightly Release"
           repository: TTF-fog/newcdn
           token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-        if: ${{ needs.windows-build.outputs.type != 1 }}
+        if: ${{ needs.windows-build.outputs.type != '1' }}
