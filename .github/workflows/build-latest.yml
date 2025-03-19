@@ -6,7 +6,7 @@ on:
     branches: [ "main", "scripting-v2" ]
   workflow_dispatch:
 
-env:
+env:r
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
