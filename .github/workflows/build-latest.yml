@@ -6,7 +6,7 @@ on:
     branches: [ "main", "scripting-v2" ]
   workflow_dispatch:
 
-env:r
+env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -29,12 +29,12 @@ jobs:
               echo "Continuing to build as release"
               echo "status=1" >> "$GITHUB_OUTPUT"
           elif [[ "${{ github.event.head_commit.message }}" == *"beta:"* ]]; then
-              echo "Continuing to build as beta,"
+              echo "Continuing to build as beta"
               echo "status=2" >> "$GITHUB_OUTPUT"
           else
               echo "Not a build commit, exiting"
               gh run cancel ${{ github.run_id }}
-              gh run watch ${{ github.run_id }}
+              gh run watch ${{ github.run_id }}f
               exit 0
           fi
         shell: bash
@@ -114,9 +114,9 @@ jobs:
           git config user.email "actions@example.com"
           mv -f Flarial_DLL/Flarial.dll "./dll/beta.dll"
           git add ./dll/beta.dll
-          git commit -m "Add Release for Release Commit: '${{ github.event.head_commit.message }}'"
+          git commit -m "Add Beta for Beta Commit: '${{ github.event.head_commit.message }}'"
           git push origin main
-          echo "uploading as release"
+          echo "uploading as beta"
         if: ${{ env.OUTPUT1 == 2 }}
         env:
           OUTPUT1: ${{ needs.windows-build.outputs.type}}
